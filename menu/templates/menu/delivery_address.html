@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block title%}Order summary{% endblock %}
+{% block content %}
+<img src="{% static 'img/order_bar_3.png' %}" alt="Delivery address" class="center">
+<img src="{% static 'img/pexels-photo-4392890.jpeg' %}" alt="Picture" style="float: right; display: block; width: 25%; margin: 0px 30% 20px 20px"/>
+<form method="post" class="form-margin" style="margin-left: 30%; margin-top: 20px">
+            {% csrf_token %}
+            <div class="form-div">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+            <div class="form-div">
+                {{ form.surname.label_tag }}
+                {{ form.surname }}
+            </div>
+            <div class="form-div">
+                {{ form.cellphone_number.label_tag }}
+                {{ form.cellphone_number }}
+            </div>
+            <div class="form-div">
+                {{ form.city.label_tag }}
+                {{ form.city }}
+            </div>
+            <div class="form-div">
+                {{ form.street.label_tag }}
+                {{ form.street }}
+            </div>
+            <div class="form-div">
+                {{ form.house_number.label_tag }}
+                {{ form.house_number }}
+            </div>
+            <div class="form-div">
+                {{ form.flat_number.label_tag }}
+                {{ form.flat_number }}
+            </div>
+            <div class="form-div">
+                {{ form.zip_code.label_tag }}
+                {{ form.zip_code }}
+            </div>
+            <input type="submit" value="Summary" class="btn-primary" style="margin-left: 10px; margin-top: 10px; font-size: 18px">
+</form>
+{% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div>
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+                <div>
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+{% endif %}
+{% endblock %}

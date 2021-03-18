@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title%}Menu{% endblock%}
+{% block content %}
+    <img src="{% static 'img/order_bar_2.png' %}" alt="Assemble your order" class="center">
+    <div class="cartDiv" id="cart">
+        <span class="bold" style="text-align: left">Cart</span>
+        {% if message %}
+        <p>{{ message }}</p>
+        {% endif %}
+        <ul>
+        {% for cart_item in cart %}
+            <li style="text-align: right">
+                {{cart_item}}
+                <button  onclick="location.href='{% url 'add_to_cart' cart_item.food_id.pk %}'" class="btn-primary">+</button>
+                <button  onclick="location.href='{% url 'remove_from_cart' cart_item.food_id.pk %}'" class="btn-primary">-</button>
+                <button  onclick="location.href='{% url 'delete_from_cart' cart_item.food_id.pk %}'" class="btn-primary">x</button>
+            </li>
+        {% endfor %}
+        </ul>
+        <p style="text-align: right">Total cost: {{ cost }}{{currency}}</p>
+        <button  onclick="location.href='{% url 'delivery_address' %}'" class="btn-primary" style="float: right">Next</button>
+    </div>
+    {% for dish in food %}
+    <div class="foodDiv">
+        <div style="margin-bottom: 100px">
+            <span class="bold">{{dish.name}}</span>
+            <img src="{% static dish.get_file %}" alt="food" class="mini"/>
+            <p class="italic" style="margin-left: 10px">{{dish.description}}</p>
+        </div>
+        <p><button  onclick="location.href='{% url 'add_to_cart' dish.pk %}'" class="btn-primary">Add to cart</button>
+        <span style="float: right">{{dish.price}} {{currency}}</span></p>
+    </div>
+    {% endfor %}
+{% endblock %}

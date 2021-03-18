@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}Order summary{% endblock%}
+{% block content %}
+<img src="{% static 'img/order_bar_4.png' %}" alt="Summary" class="center">
+<div class="cartDivSummary">
+    <h2 style="text-align: center">Your order</h2>
+    <hr>
+    <ul>
+    {% for cart_item in cart %}
+        <li>
+            {{cart_item}}
+        </li>
+    {% endfor %}
+    </ul>
+    <p style="text-align: right">Total cost: {{cost}}{{currency}}</p>
+    <button onclick="location.href='{% url 'order' %}'" class="btn-primary" style="float: right">Order your meal</button>
+</div>
+{% endblock %}

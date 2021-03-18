@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/base_styles.css' %}">
+    <title>{% block title %}Restaurant{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <div class="account-options">
+            {% block navigation %}
+            {% endblock %}
+            {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                <a href="{% url 'admin:index' %}">Admin panel</a>
+                {% endif %}
+                <a href="{% url 'view_orders' %}">View orders</a>
+                <a href="{% url 'password_change' %}">Change password</a>
+                <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a href="{% url 'register' %}">Create account</a>
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+        <div class="top">
+            <button class="toplinks" onclick="location.href='{% url 'home' %}'">HOME</button>
+            <button class="toplinks" onclick="location.href='{% url 'menu' %}'">MENU/ORDER</button>
+        </div>
+    </header>
+    <div class="wrap">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        <div class="bottom">
+            <p>Designed by Patrycja Frąckiewicz, 2021</p>
+        </div>
+    </footer>
+</body>
+</html>

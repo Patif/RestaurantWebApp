@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}Order {{ order_id }}{% endblock%}
+{% block content %}
+<img src="{% static 'img/pexels-photo-1854652.jpeg' %}" alt="Food" style="float: right; width: 20%; margin-top: 10%; margin-bottom: 20px">
+<img src="{% static 'img/pexels-photo-2280545.jpeg' %}" alt="Food" style="float: right; width: 20%">
+<h2 style="margin-left: 80px">Order details</h2>
+<div class="introductionDiv">
+    {% if accepted %}
+        <p class="bold">Your order ({{order_id}}) was accepted! Thank you for using our site!</p>
+        Your order:
+        <ul>
+            {% for item in content%}
+            <li>{{item}}</li>
+            {% endfor %}
+        </ul>
+        <p class="bold">Prepare this amount of money: {{ cost }} {{currency}}</p>
+        {% if finished %}
+            <p>Our delivery man is on its way!</p>
+        {% else %}
+            <p>Refresh the page in about 15-20 minutes to check if your order is coming to you!</p>
+        {% endif%}
+    {% else %}
+        Your order ({{order_id}}) was made and has been redirected to the restaurant. <br>
+        Refresh the page in few minutes, to check if it was accepted.
+    {% endif %}
+</div>
+{% endblock %}

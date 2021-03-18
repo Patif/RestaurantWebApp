@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title%}Home{% endblock%}
+{% block navigation %}
+    {% if user.is_authenticated %}
+            {% if not is_restaurant %}
+                <a href="{% url 'edit_client' %}" class="no-underline-link">Edit delivery address</a>
+            {% endif %}
+    {% endif%}
+{% endblock %}
+{% block content %}
+
+{% if message %}
+    <h3>{{message}}</h3>
+{% endif %}
+<h2 style="margin: 20px 120px; font-family: Georgia, Arial">Prepare to be...</h2>
+<h2 style="margin: 0px 400px; font-family: Georgia, Arial">...served!</h2>
+<img class="right" src="{% static 'home_page/pexels-photo-2263510.jpeg' %}" alt="Our restaurant" style="margin-right: 10px;margin-top: 70px"/>
+<img class="right" src="{% static 'home_page/pexels-photo-3887985.jpeg' %}" alt="Our restaurant"/>
+<img class="right" src="{% static 'home_page/pexels-photo-4676640.jpeg' %}" alt="Our restaurant" style="margin-top: 70px"/>
+<div class="introductionDiv">
+    <p style="text-align: center">Welcome!</p>
+    <p>There is a reason why you can't say hungry without angry.</p>
+    <p>You are not yourself, when your stomach is empty.</p>
+    <p>Our mission is to save everyone from your wrath, by delivering you best food possible!</p>
+    <p>You don't need an account to order food from our restaurant, but it will be more comfortable for your next
+    orders, as your address info will already be filled out!</p>
+    <p>Right now, we don't support online payment, so prepare your credit card or cash,
+        when your superhero (one of our delivery guys) with food comes!</p>
+</div>
+
+{% endblock %}

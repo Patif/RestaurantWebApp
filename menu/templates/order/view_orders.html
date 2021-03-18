@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+    {% block title%}View orders{% endblock%}
+{% block content %}
+<h2 style="text-align: center">View orders</h2>
+    {% if message %}
+        <p>{{message}}</p>
+    {% endif %}
+    {% if orders %}
+        {% for order in  orders %}
+            <div class="introductionDiv">
+                <p>Order number: {{ order.number }}</p>
+                <p>Client: {{ order.client.name }} {{order.client.surname}}</p>
+                <p>Ordered at: {{ order.date }} {{order.time}}</p>
+                <p>Status: {% if order.finished %} finished {% elif order.accepted %} accepted {% else %} pending {% endif %}</p>
+                <p>Content:</p>
+                <ul style="list-style-type: square">
+                    {% for item in order.cartitem_set.all %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                <p>Total cost: {{ order.sum_order }} {{currency}}</p>
+                {% if is_restaurant %}
+                    {% if not order.accepted %}
+                    <button onclick="location.href='{% url 'accept_order' order.pk %}'" class="btn-primary">Accept</button>
+                    {% endif %}
+                    <button onclick="location.href='{% url 'finish_order' order.pk %}'" class="btn-primary">Finish</button>
+                {% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>You haven't made any orders yet!</p>
+    {% endif %}
+{% endblock %}
